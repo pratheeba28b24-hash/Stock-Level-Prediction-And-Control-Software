@@ -1,0 +1,7 @@
+product_id,name,brand,purchase_price,selling_price,tax_rate
+ITM-001,MacBook Air M2,Apple,800.0,1099.0,0.18
+ITM-002,Ergonomic Office Chair,Steelcase,120.0,199.0,0.12
+ITM-003,Wireless Mouse,Logitech,15.0,35.0,0.18
+ITM-004,Standing Desk,Fully,220.0,399.0,0.12
+ITM-005,Notebook A5,Moleskine,3.5,9.5,0.05
+ITM-006,Gel Pens Set of 10,Pilot,4.0,12.0,0.05

@@ -1,0 +1,2321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockSense - AI-Based Stock Level Prediction & Control</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outlet:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/styles.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- HTML5-QR Code for barcode scanning -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body class="light-mode">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;"></div>
+
+
+    <!-- LOGIN WRAPPER OVERLAY -->
+    <div id="auth-layer" class="auth-layer">
+        <!-- Ambient animated glowing background orbs & grid -->
+        <div class="auth-grid"></div>
+        <div class="auth-orb auth-orb-1"></div>
+        <div class="auth-orb auth-orb-2"></div>
+        <div class="auth-orb auth-orb-3"></div>
+
+        <div class="auth-container">
+            <!-- Left Side: Animated Futuristic AI + Stock Visual Engine -->
+            <div class="auth-visual-side">
+                <div class="visual-brand-header mb-4">
+                    <div class="visual-client-tag mb-2">
+                        <i class="fa-solid fa-building me-2"></i> Client System: <strong>R&R Apparel Sourcing</strong>
+                    </div>
+                    <h2 class="visual-hero-title mb-1">
+                        <i class="fa-solid fa-chart-line text-cyan me-2"></i>StockSense Enterprise
+                    </h2>
+                    <p class="visual-hero-subtitle">AI-Powered Inventory Intelligence Platform</p>
+                </div>
+
+                <!-- Animated Interactive AI Inventory Stage -->
+                <div class="inventory-stage">
+                    <!-- SVG Neural Data Nodes & Signal Paths -->
+                    <svg class="stage-svg-connections" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 50 180 Q 150 80 280 140 T 420 80" fill="none" stroke="rgba(56, 189, 248, 0.25)" stroke-width="2" stroke-dasharray="6 6" class="path-pulse" />
+                        <path d="M 80 80 Q 200 220 380 190" fill="none" stroke="rgba(129, 140, 248, 0.2)" stroke-width="1.5" stroke-dasharray="4 4" />
+                        <circle cx="50" cy="180" r="4" fill="#38bdf8" class="node-glow" />
+                        <circle cx="280" cy="140" r="5" fill="#818cf8" class="node-glow" />
+                        <circle cx="420" cy="80" r="4" fill="#06b6d4" class="node-glow" />
+                    </svg>
+
+                    <!-- Laser Scanner & Warehouse Rack Silhouette -->
+                    <div class="warehouse-shelf-silhouette">
+                        <div class="shelf-bar"></div>
+                        <div class="shelf-bar"></div>
+                    </div>
+
+                    <div class="laser-scanner">
+                        <div class="laser-beam"></div>
+                        <div class="laser-glow"></div>
+                    </div>
+
+                    <!-- Floating 3D Storage Boxes -->
+                    <div class="stock-box-float box-1">
+                        <div class="box-top"></div>
+                        <div class="box-side">
+                            <i class="fa-solid fa-barcode text-cyan"></i>
+                            <span class="box-tag">BOX-AI-9021</span>
+                        </div>
+                    </div>
+
+                    <div class="stock-box-float box-2">
+                        <div class="box-top"></div>
+                        <div class="box-side">
+                            <i class="fa-solid fa-boxes-stacked text-purple"></i>
+                            <span class="box-tag">SKU-8842</span>
+                        </div>
+                    </div>
+
+                    <div class="stock-box-float box-3">
+                        <div class="box-top"></div>
+                        <div class="box-side">
+                            <i class="fa-solid fa-cubes-stacked text-cyan"></i>
+                            <span class="box-tag">RACK-04B</span>
+                        </div>
+                    </div>
+
+                    <!-- Live AI Stock Bar Chart Card -->
+                    <div class="ai-stock-widget">
+                        <div class="widget-header">
+                            <i class="fa-solid fa-brain me-2 text-cyan"></i>
+                            <span>AI STOCK FORECAST</span>
+                            <span class="widget-status"><i class="fa-solid fa-circle text-success me-1 text-xs"></i>LIVE</span>
+                        </div>
+                        <div class="stock-bars-row">
+                            <div class="bar-col"><div class="bar-fill bar-1"></div><span class="bar-lbl">MON</span></div>
+                            <div class="bar-col"><div class="bar-fill bar-2"></div><span class="bar-lbl">TUE</span></div>
+                            <div class="bar-col"><div class="bar-fill bar-3"></div><span class="bar-lbl">WED</span></div>
+                            <div class="bar-col"><div class="bar-fill bar-4"></div><span class="bar-lbl">THU</span></div>
+                            <div class="bar-col"><div class="bar-fill bar-5"></div><span class="bar-lbl">FRI</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Feature Pills -->
+                <div class="visual-features-row mt-4">
+                    <span class="feature-pill"><i class="fa-solid fa-bolt text-warning me-1"></i> Real-time Predictive Reorders</span>
+                    <span class="feature-pill"><i class="fa-solid fa-shield-check text-success me-1"></i> 99.4% Forecast Accuracy</span>
+                    <span class="feature-pill"><i class="fa-solid fa-satellite-dish text-info me-1"></i> Automated RFID Scanning</span>
+                </div>
+            </div>
+
+            <!-- Right Side: Modern Enterprise Login Card -->
+            <div class="auth-form-side">
+                <!-- Step 1: Role Selection -->
+                <div id="role-select-panel" class="auth-panel">
+                    <div class="text-center mb-4">
+                        <div class="client-badge-pill mb-3">
+                            <i class="fa-solid fa-building text-cyan me-1"></i> Client: <strong>R&R Apparel Sourcing</strong>
+                        </div>
+                        <div class="auth-logo-wrap mb-3">
+                            <div class="auth-logo-ring">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <h2 class="auth-title">StockSense Enterprise</h2>
+                        <p class="auth-subtitle">AI-Powered Inventory Intelligence Platform</p>
+                        <div class="auth-divider"></div>
+                        <p class="auth-role-prompt">Select your access role to continue</p>
+                    </div>
+
+                    <!-- Role Cards -->
+                    <div class="role-cards-grid">
+                        <!-- Owner / Admin -->
+                        <div class="role-card role-card-owner" id="role-owner" onclick="selectRole('Admin', 'admin', 'admin123')" tabindex="0" role="button">
+                            <div class="role-card-glow"></div>
+                            <div class="role-icon-wrap">
+                                <i class="fa-solid fa-crown"></i>
+                            </div>
+                            <div class="role-info">
+                                <span class="role-name">Owner</span>
+                                <span class="role-desc">Full system access &amp; security controls</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right role-arrow"></i>
+                        </div>
+
+                        <!-- Manager -->
+                        <div class="role-card role-card-manager" id="role-manager" onclick="selectRole('Manager', 'manager', 'manager123')" tabindex="0" role="button">
+                            <div class="role-card-glow"></div>
+                            <div class="role-icon-wrap">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                            <div class="role-info">
+                                <span class="role-name">Manager</span>
+                                <span class="role-desc">Inventory operations &amp; purchase orders</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right role-arrow"></i>
+                        </div>
+
+                        <!-- Customer -->
+                        <div class="role-card role-card-customer" id="role-customer" onclick="selectRole('Customer', 'customer', 'customer123')" tabindex="0" role="button">
+                            <div class="role-card-glow"></div>
+                            <div class="role-icon-wrap">
+                                <i class="fa-solid fa-user-tag"></i>
+                            </div>
+                            <div class="role-info">
+                                <span class="role-name">Customer</span>
+                                <span class="role-desc">View products &amp; place orders</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right role-arrow"></i>
+                        </div>
+                    </div>
+
+                    <p class="auth-footer-note mb-0">
+                        <i class="fa-solid fa-shield-halved me-1 text-teal"></i>
+                        Secure enterprise login with MFA device verification
+                    </p>
+                </div>
+
+                <!-- Step 2: Login Form (shown after role selected) -->
+                <div id="login-panel" class="auth-panel d-none">
+                    <!-- Back Button -->
+                    <button class="auth-back-btn" onclick="goBackToRoleSelect()">
+                        <i class="fa-solid fa-arrow-left me-2"></i> Change Role
+                    </button>
+
+                    <!-- Selected Role Badge -->
+                    <div class="selected-role-badge mb-4" id="selected-role-badge">
+                        <div class="srb-icon" id="srb-icon"><i class="fa-solid fa-crown"></i></div>
+                        <div>
+                            <span class="srb-label">Logging in as</span>
+                            <span class="srb-role" id="srb-role-name">Owner</span>
+                        </div>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="login-form" autocomplete="off">
+                        <div class="mb-3">
+                            <label class="auth-label">Username / Email</label>
+                            <div class="auth-input-wrap">
+                                <i class="fa-solid fa-user auth-input-icon"></i>
+                                <input type="text" id="username" class="auth-input" placeholder="Enter username or email" required autocomplete="username">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="auth-label">Password</label>
+                            <div class="auth-input-wrap">
+                                <i class="fa-solid fa-lock auth-input-icon"></i>
+                                <input type="password" id="password" class="auth-input" placeholder="••••••••" required autocomplete="current-password">
+                                <button type="button" class="auth-eye-btn" onclick="togglePasswordVisibility()">
+                                    <i class="fa-solid fa-eye" id="eye-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <label class="auth-check-label mb-0">
+                                <input type="checkbox" id="remember_me" class="auth-checkbox">
+                                <span>Remember this device</span>
+                            </label>
+                            <a href="#" class="auth-forgot-link" onclick="showToast('For security assistance, contact your system administrator or check demo mode credentials.', 'info'); return false;">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="auth-submit-btn mb-3" id="login-submit-btn">
+                            <span class="btn-text">Sign In <i class="fa-solid fa-arrow-right ms-2"></i></span>
+                            <span class="btn-loader d-none"><i class="fa-solid fa-spinner fa-spin me-2"></i>Authenticating...</span>
+                        </button>
+                    </form>
+
+                    <div class="text-center mb-3">
+                        <span class="text-muted text-xs me-1">Need enterprise access?</span>
+                        <a href="#" class="auth-forgot-link font-weight-bold" onclick="showToast('To request a new enterprise account for R&R Apparel Sourcing, contact admin@stocksense.com', 'info'); return false;">Create Account / Request Access</a>
+                    </div>
+
+                    <!-- Credential hint box -->
+                    <div class="cred-hint-box" id="cred-hint-box">
+                        <i class="fa-solid fa-circle-info me-2 text-teal"></i>
+                        Demo credentials auto-filled. Click <strong>Sign In</strong>.
+                    </div>
+                </div>
+
+                <!-- Step 3: OTP / 2FA VERIFICATION -->
+                <div id="otp-panel" class="auth-panel d-none">
+                    <div class="otp-shield-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="auth-title mb-2">Device Verification</h3>
+                    <p class="auth-subtitle mb-4">We detected a new device or IP. Enter the OTP sent to your admin to continue.</p>
+
+                    <div class="otp-demo-badge mb-4">
+                        <i class="fa-solid fa-flask me-2"></i> Demo Mode: Use code <strong>123456</strong>
+                    </div>
+
+                    <form id="otp-form">
+                        <div class="mb-4">
+                            <label class="auth-label">Verification Code</label>
+                            <input type="text" id="otp_code" class="otp-input" placeholder="_ _ _ _ _ _" maxlength="6" required>
+                        </div>
+                        <button type="submit" class="auth-submit-btn">
+                            <i class="fa-solid fa-fingerprint me-2"></i> Verify Device
+                        </button>
+                        <button type="button" class="auth-link-btn mt-3" onclick="resetAuthLayer()">
+                            <i class="fa-solid fa-rotate-left me-1"></i> Back to Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="app-layout d-none" id="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header d-flex align-items-center gap-3">
+                <div class="logo-box">
+                    <i class="fa-solid fa-chart-line text-teal"></i>
+                </div>
+                <div class="brand-info">
+                    <span class="brand-title">StockSense</span>
+                    <span class="brand-subtitle">AI Prediction Control</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <i class="fa-solid fa-chart-pie"></i> Dashboard
+                </a>
+                <a href="#" class="nav-item" data-page="products">
+                    <i class="fa-solid fa-boxes-stacked"></i> Products
+                </a>
+                <a href="#" class="nav-item" data-page="inventory">
+                    <i class="fa-solid fa-warehouse"></i> Inventory Control
+                </a>
+                <a href="#" class="nav-item" data-page="transfers">
+                    <i class="fa-solid fa-route"></i> Stock Transfers
+                </a>
+                <a href="#" class="nav-item" data-page="suppliers">
+                    <i class="fa-solid fa-handshake"></i> Suppliers
+                </a>
+                <a href="#" class="nav-item" data-page="purchases">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Purchase Orders
+                </a>
+                <a href="#" class="nav-item" data-page="billing">
+                    <i class="fa-solid fa-cash-register"></i> POS &amp; Billing
+                </a>
+                <a href="#" class="nav-item" data-page="orders">
+                    <i class="fa-solid fa-arrow-rotate-left"></i> Returns &amp; Tracking
+                </a>
+                <a href="#" class="nav-item" data-page="scanner">
+                    <i class="fa-solid fa-barcode"></i> Barcode Scanner
+                </a>
+                <a href="#" class="nav-item" data-page="predictions">
+                    <i class="fa-solid fa-brain"></i> AI Stock Prediction
+                </a>
+                <a href="#" class="nav-item" data-page="analytics">
+                    <i class="fa-solid fa-chart-line text-warning"></i> Advanced Analytics
+                </a>
+                <a href="#" class="nav-item" data-page="customers">
+                    <i class="fa-solid fa-users text-info"></i> Customers CRM
+                </a>
+                <a href="#" class="nav-item" data-page="planalysis">
+                    <i class="fa-solid fa-sack-dollar text-success"></i> P&amp;L Analysis
+                </a>
+                <a href="#" class="nav-item" data-page="heatmap">
+                    <i class="fa-solid fa-fire-flame-curved text-danger"></i> Warehouse Heatmap
+                </a>
+                <a href="#" class="nav-item" data-page="reports">
+                    <i class="fa-solid fa-file-pdf"></i> Reports &amp; Audits
+                </a>
+                <a href="#" class="nav-item" data-page="livetracking" id="nav-item-livetracking">
+                    <i class="fa-solid fa-tower-broadcast text-danger"></i> Live Tracking
+                </a>
+                <a href="#" class="nav-item" data-page="cloud" id="nav-item-cloud">
+                    <i class="fa-solid fa-folder-open text-info"></i> File Storage
+                </a>
+                <a href="#" class="nav-item d-none" data-page="security" id="nav-item-security">
+                    <i class="fa-solid fa-shield-halved"></i> Security Controls
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="theme-toggle mb-3" onclick="toggleTheme()">
+                    <i class="fa-solid fa-moon me-2 dark-icon"></i>
+                    <i class="fa-solid fa-sun me-2 light-icon"></i>
+                    <span id="theme-text">Dark Mode</span>
+                </div>
+                <div class="user-profile-badge d-flex align-items-center gap-2">
+                    <div class="avatar"><i class="fa-solid fa-user text-white"></i></div>
+                    <div class="info flex-grow-1 overflow-hidden">
+                        <span class="name text-truncate" id="user-display-name">Username</span>
+                        <span class="role" id="user-display-role">Role</span>
+                    </div>
+                    <button class="btn btn-link p-0 text-white" onclick="triggerLogout()" title="Logout">
+                        <i class="fa-solid fa-power-off"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <header class="workspace-header d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="fw-bold mb-1" id="workspace-title">Dashboard</h1>
+                    <p class="text-muted text-sm mb-0" id="workspace-subtitle">System status overview</p>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <!-- Client Company Branding Badge -->
+                    <div class="dashboard-client-badge text-end me-2 px-3 py-1-5 rounded-3 d-none d-sm-flex align-items-center gap-2" style="background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.2);">
+                        <i class="fa-solid fa-building text-cyan"></i>
+                        <div class="text-start">
+                            <div class="text-xs text-muted lh-1 text-uppercase fw-semibold tracking-wider">Organization</div>
+                            <div class="fw-bold text-sm text-teal lh-1 mt-1">R&R Apparel Sourcing</div>
+                        </div>
+                    </div>
+
+                    <!-- Role Session Banner -->
+                    <div id="role-session-banner" class="role-session-banner d-none" aria-label="Current role session">
+                        <i class="fa-solid fa-crown" id="role-banner-icon"></i>
+                        <span id="role-banner-label">Owner</span>
+                    </div>
+
+                    <!-- Notifications Button -->
+                    <div class="position-relative notification-dropdown">
+                        <button class="btn btn-light rounded-circle shadow-sm" onclick="toggleNotificationPanel()" id="btn-notifications" aria-label="Open notifications">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="badge position-absolute top-0 start-100 translate-middle rounded-circle bg-danger" id="notif-count" style="display:none;">0</span>
+                        </button>
+                        <div class="notification-panel shadow-lg d-none" id="notif-panel">
+                            <div class="header d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">Active Alerts</span>
+                                <button class="btn btn-link btn-sm text-teal text-decoration-none" onclick="dismissAllNotifications()">Clear All</button>
+                            </div>
+                            <div class="notifications-list" id="notif-list">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating chatbot trigger -->
+                    <button class="btn btn-teal rounded-pill d-none shadow-sm" id="btn-chatbot" onclick="toggleChatbot()">
+                        <i class="fa-solid fa-robot me-1"></i> StockSense AI
+                    </button>
+                </div>
+            </header>
+
+            <div class="workspace-body py-4">
+                
+                <!-- 1. DASHBOARD PAGE -->
+                <section id="page-dashboard" class="page-view active animate-fade">
+                    
+                    <!-- HERO BANNER CARD -->
+                    <div class="hero-banner-card mb-4 p-4 p-lg-5">
+                        <div class="row align-items-center">
+                            <div class="col-lg-7">
+                                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-semibold mb-3">
+                                    <i class="fa-solid fa-sparkles me-1"></i> StockSense AI Platform v3.0
+                                </span>
+                                <h1 class="fw-extrabold display-6 text-white mb-2">AI-Powered Inventory Intelligence</h1>
+                                <p class="text-blue-100 lead fs-6 mb-4">Enterprise stock prediction, multi-warehouse automated reordering, real-time POS analytics, and supply chain control.</p>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <button class="btn btn-primary rounded-pill px-4 py-2 fw-bold" onclick="navigateToPage('predictions')">
+                                        <i class="fa-solid fa-brain me-2"></i> Run AI Demand Prediction
+                                    </button>
+                                    <button class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold" onclick="openScannerModal()">
+                                        <i class="fa-solid fa-barcode me-2"></i> Scan Barcode/QR
+                                    </button>
+                                    <a class="btn btn-light rounded-pill px-4 py-2 fw-semibold" href="/api/reports/excel/inventory">
+                                        <i class="fa-solid fa-file-excel text-success me-2"></i> Export Report
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 text-center mt-4 mt-lg-0">
+                                <div id="hero-illustration-container"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 12 ENTERPRISE KPI CARDS -->
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-line text-primary me-2"></i> Key Operational Metrics</h5>
+                    <div class="kpi-grid mb-4">
+                        <!-- 1. Total Products -->
+                        <div class="kpi-card kpi-card-blue">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Total Products</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-boxes-stacked"></i></div>
+                            </div>
+                            <div class="kpi-value" id="dash-total-products">0</div>
+                            <div class="mt-2 text-xs text-muted"><span class="badge bg-success-subtle text-success me-1"><i class="fa-solid fa-arrow-up"></i> +12%</span> vs last month</div>
+                        </div>
+
+                        <!-- 2. Total Stock Units -->
+                        <div class="kpi-card kpi-card-teal">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Total Stock Units</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-cubes"></i></div>
+                            </div>
+                            <div class="kpi-value" id="dash-available-stock">0</div>
+                            <div class="mt-2 text-xs text-muted"><span class="badge bg-info-subtle text-info me-1"><i class="fa-solid fa-warehouse"></i> 5 Hubs</span> On Hand Units</div>
+                        </div>
+
+                        <!-- 3. Inventory Value -->
+                        <div class="kpi-card kpi-card-green">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Inventory Valuation</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-vault"></i></div>
+                            </div>
+                            <div class="kpi-value text-teal" id="dash-inventory-value">₹0.00</div>
+                            <div class="mt-2 text-xs text-muted"><span class="badge bg-success-subtle text-success me-1">+8.4%</span> Assets Valuation</div>
+                        </div>
+
+                        <!-- 4. Low Stock Items -->
+                        <div class="kpi-card kpi-card-orange">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Low Stock Items</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            </div>
+                            <div class="kpi-value text-warning" id="dash-low-stock">0</div>
+                            <div class="mt-2 text-xs text-muted"><span class="badge bg-warning-subtle text-warning me-1">Action Needed</span> Below Safety Buffer</div>
+                        </div>
+
+                        <!-- 5. Out of Stock -->
+                        <div class="kpi-card kpi-card-red">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Out of Stock</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-circle-xmark"></i></div>
+                            </div>
+                            <div class="kpi-value text-danger" id="dash-out-stock">0</div>
+                            <div class="mt-2 text-xs text-muted"><span class="badge bg-danger-subtle text-danger me-1">Critical</span> Urgent Reorder</div>
+                        </div>
+
+                        <!-- 6. Overstock Items -->
+                        <div class="kpi-card kpi-card-purple">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Overstock Items</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-box-open"></i></div>
+                            </div>
+                            <div class="kpi-value text-info" id="dash-overstock">0</div>
+                            <div class="mt-2 text-xs text-muted">Exceeds Max Threshold</div>
+                        </div>
+
+                        <!-- 7. Pending Purchase Orders -->
+                        <div class="kpi-card kpi-card-orange">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Pending POs</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-clock"></i></div>
+                            </div>
+                            <div class="kpi-value" id="dash-pending-orders">0</div>
+                            <div class="mt-2 text-xs text-muted">Awaiting Delivery / Approval</div>
+                        </div>
+
+                        <!-- 8. Active Suppliers -->
+                        <div class="kpi-card kpi-card-teal">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Active Suppliers</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-handshake"></i></div>
+                            </div>
+                            <div class="kpi-value" id="dash-active-suppliers">0</div>
+                            <div class="mt-2 text-xs text-muted"><span class="text-success fw-bold">96.8%</span> On-Time Rate</div>
+                        </div>
+
+                        <!-- 9. Today's Sales -->
+                        <div class="kpi-card kpi-card-blue">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Today's Sales</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-cash-register"></i></div>
+                            </div>
+                            <div class="kpi-value" id="dash-today-sales">₹0.00</div>
+                            <div class="mt-2 text-xs text-muted">POS Invoiced Today</div>
+                        </div>
+
+                        <!-- 10. Monthly Sales -->
+                        <div class="kpi-card kpi-card-green">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Monthly Sales</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-calendar-check"></i></div>
+                            </div>
+                            <div class="kpi-value" id="dash-monthly-sales">₹0.00</div>
+                            <div class="mt-2 text-xs text-muted"><span class="badge bg-success-subtle text-success me-1">+14.8%</span> vs prev month</div>
+                        </div>
+
+                        <!-- 11. Stock Turnover Rate -->
+                        <div class="kpi-card kpi-card-purple">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Stock Turnover</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-arrows-rotate"></i></div>
+                            </div>
+                            <div class="kpi-value text-purple" id="dash-stock-turnover">6.8x</div>
+                            <div class="mt-2 text-xs text-muted">Annualized Velocity</div>
+                        </div>
+
+                        <!-- 12. Forecast Accuracy -->
+                        <div class="kpi-card kpi-card-blue">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="kpi-label">Forecast Accuracy</span>
+                                <div class="kpi-icon-box"><i class="fa-solid fa-brain"></i></div>
+                            </div>
+                            <div class="kpi-value text-success" id="dash-forecast-accuracy">94.7%</div>
+                            <div class="mt-2 text-xs text-muted"><i class="fa-solid fa-check-circle text-success me-1"></i> AI Model Validated</div>
+                        </div>
+                    </div>
+
+                    <!-- INVENTORY HEALTH MONITOR SECTION -->
+                    <div class="glass-card p-4 mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="fw-bold mb-0"><i class="fa-solid fa-heart-pulse text-danger me-2"></i> Inventory Health Status &amp; Stock Balance</h6>
+                            <span class="badge bg-primary-subtle text-primary px-3 py-1-5 rounded-pill text-xs font-monospace">Real-time DB Sync</span>
+                        </div>
+                        <div class="row align-items-center g-3 mb-3">
+                            <div class="col-md-7">
+                                <div class="progress" style="height: 18px; border-radius: 9px; overflow: hidden; background: rgba(15, 23, 42, 0.4);">
+                                    <div class="progress-bar bg-success" id="bar-healthy" role="progressbar" style="width: 72%" title="Healthy Stock">72%</div>
+                                    <div class="progress-bar bg-warning" id="bar-low" role="progressbar" style="width: 14%" title="Low Stock">14%</div>
+                                    <div class="progress-bar bg-danger" id="bar-critical" role="progressbar" style="width: 5%" title="Critical">5%</div>
+                                    <div class="progress-bar bg-info" id="bar-overstock" role="progressbar" style="width: 6%" title="Overstock">6%</div>
+                                    <div class="progress-bar bg-secondary" id="bar-out" role="progressbar" style="width: 3%" title="Out of Stock">3%</div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="d-flex flex-wrap gap-2 justify-content-md-end text-xs">
+                                    <span class="badge bg-success-subtle text-success p-2"><i class="fa-solid fa-circle text-success me-1"></i> Healthy: <strong id="val-healthy">72%</strong></span>
+                                    <span class="badge bg-warning-subtle text-warning p-2"><i class="fa-solid fa-circle text-warning me-1"></i> Low: <strong id="val-low">14%</strong></span>
+                                    <span class="badge bg-danger-subtle text-danger p-2"><i class="fa-solid fa-circle text-danger me-1"></i> Critical: <strong id="val-critical">5%</strong></span>
+                                    <span class="badge bg-info-subtle text-info p-2"><i class="fa-solid fa-circle text-info me-1"></i> Overstock: <strong id="val-overstock">6%</strong></span>
+                                    <span class="badge bg-secondary-subtle text-secondary p-2"><i class="fa-solid fa-circle text-secondary me-1"></i> Out of Stock: <strong id="val-out">3%</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 10 INTERACTIVE CHARTS GRID -->
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-column text-primary me-2"></i> Analytics &amp; Visualization Charts</h5>
+                    
+                    <div class="row g-4 mb-4">
+                        <!-- Chart 1: Daily Sales -->
+                        <div class="col-lg-6">
+                            <div class="glass-card p-4">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-calendar-day me-2 text-primary"></i> Daily Sales Trend (Past 7 Days)</h6>
+                                <div style="position:relative; height: 260px;">
+                                    <canvas id="chartDailySales"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart 2: Weekly Sales -->
+                        <div class="col-lg-6">
+                            <div class="glass-card p-4">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-calendar-week me-2 text-success"></i> Weekly Sales Breakdown</h6>
+                                <div style="position:relative; height: 260px;">
+                                    <canvas id="chartWeeklySales"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart 3: Monthly Sales -->
+                        <div class="col-lg-6">
+                            <div class="glass-card p-4">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-chart-line me-2 text-purple"></i> Monthly Growth Trend (6 Months)</h6>
+                                <div style="position:relative; height: 260px;">
+                                    <canvas id="chartMonthlySales"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart 4: Product Categories -->
+                        <div class="col-lg-6">
+                            <div class="glass-card p-4">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-chart-pie me-2 text-info"></i> Product Category Stock Distribution</h6>
+                                <div style="position:relative; height: 260px;">
+                                    <canvas id="chartCategories"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart 5: Top Selling Products -->
+                        <div class="col-lg-6">
+                            <div class="glass-card p-4">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-trophy me-2 text-warning"></i> Top Selling Products</h6>
+                                <div style="position:relative; height: 260px;">
+                                    <canvas id="chartTopSelling"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart 6: Least Selling Products -->
+                        <div class="col-lg-6">
+                            <div class="glass-card p-4">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-arrow-down-short-wide me-2 text-danger"></i> Least Selling Products (Slow Velocity)</h6>
+                                <div style="position:relative; height: 260px;">
+                                    <canvas id="chartLeastSelling"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart 7: Revenue Trend -->
+                        <div class="col-lg-6">
+                            <div class="glass-card p-4">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-dollar-sign me-2 text-success"></i> Revenue Accumulation Trend</h6>
+                                <div style="position:relative; height: 260px;">
+                                    <canvas id="chartRevenueTrend"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart 8: Inventory Value -->
+                        <div class="col-lg-6">
+                            <div class="glass-card p-4">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-vault me-2 text-primary"></i> Inventory Valuation by Category</h6>
+                                <div style="position:relative; height: 260px;">
+                                    <canvas id="chartInventoryValue"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart 9: Purchase vs Sales -->
+                        <div class="col-lg-6">
+                            <div class="glass-card p-4">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-scale-balanced me-2 text-teal"></i> Purchase Orders vs Sales Revenue</h6>
+                                <div style="position:relative; height: 260px;">
+                                    <canvas id="chartPurchaseVsSales"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart 10: Stock Movement -->
+                        <div class="col-lg-6">
+                            <div class="glass-card p-4">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-right-left me-2 text-warning"></i> Inward vs Outward Stock Movement</h6>
+                                <div style="position:relative; height: 260px;">
+                                    <canvas id="chartStockMovement"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RECENT INVENTORY ACTIVITY TABLE & WAREHOUSE CAPACITY MONITOR -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-lg-8">
+                            <div class="glass-card p-4 h-100">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="fw-bold mb-0"><i class="fa-solid fa-list-check text-primary me-2"></i> Recent Inventory Activity Log</h6>
+                                    <span class="badge bg-light text-secondary text-xs">Last 15 Operations</span>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table align-middle table-sm mb-0">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Date &amp; Time</th>
+                                                <th>SKU</th>
+                                                <th>Product</th>
+                                                <th>Activity</th>
+                                                <th>Qty</th>
+                                                <th>Warehouse</th>
+                                                <th>User</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dash-recent-activity-tbody">
+                                            <tr><td colspan="8" class="text-center text-muted py-3">Loading live activity audit...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="glass-card p-4 h-100">
+                                <h6 class="fw-bold mb-3"><i class="fa-solid fa-warehouse text-primary me-2"></i> Multi-Warehouse Capacity Monitor</h6>
+                                <div id="dash-warehouse-capacity"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. PRODUCTS PAGE -->
+                <section id="page-products" class="page-view animate-fade">
+                    <div class="action-bar d-flex justify-content-between align-items-center mb-4">
+                        <div class="d-flex align-items-center gap-3 flex-grow-1 max-width-600">
+                            <!-- Search -->
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
+                                <input type="text" id="search-products-catalog" class="form-control border-start-0" placeholder="Search catalog items by SKU, title..." oninput="filterProductsCatalog()">
+                            </div>
+                            <!-- Expanded Category Filter -->
+                            <select id="filter-products-category" class="form-select max-width-200" onchange="filterProductsCatalog()">
+                                <option value="">All 12 Categories</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Computer Accessories">Computer Accessories</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Office Supplies">Office Supplies</option>
+                                <option value="Apparel">Apparel</option>
+                                <option value="Footwear">Footwear</option>
+                                <option value="Home Appliances">Home Appliances</option>
+                                <option value="Mobile Accessories">Mobile Accessories</option>
+                                <option value="Networking">Networking</option>
+                                <option value="Storage Devices">Storage Devices</option>
+                                <option value="Personal Care">Personal Care</option>
+                                <option value="Sports & Fitness">Sports & Fitness</option>
+                            </select>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <!-- Webcam scanner trigger -->
+                            <button class="btn btn-outline-teal" onclick="openScannerModal()"><i class="fa-solid fa-camera me-1"></i> Scan Code</button>
+                            <!-- Bulk button -->
+                            <button class="btn btn-outline-teal" onclick="triggerFileInput()"><i class="fa-solid fa-file-import me-1"></i> Import Excel</button>
+                            <!-- Add Product button -->
+                            <button class="btn btn-teal" onclick="openProductEditModal('add')"><i class="fa-solid fa-plus me-1"></i> New Product</button>
+                        </div>
+                    </div>
+
+                    <!-- Hidden File Input for Excel Import -->
+                    <input type="file" id="excel-file-import" class="d-none" accept=".xlsx, .xls" onchange="importProductsExcel(event)">
+
+                    <div class="card shadow-sm border-0 rounded overflow-hidden">
+                        <div class="table-responsive">
+                            <table class="table align-middle table-hover mb-0">
+                                <thead class="table-header-dark">
+                                    <tr>
+                                        <th>SKU ID</th>
+                                        <th>Product Name</th>
+                                        <th>Category</th>
+                                        <th>Supplier</th>
+                                        <th>Costs</th>
+                                        <th>Price</th>
+                                        <th>Available Stock</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="products-catalog-tbody">
+                                    <!-- Dynamic products lists -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer bg-white d-flex justify-content-between align-items-center py-3" id="products-pagination-container">
+                            <span class="text-xs text-muted" id="products-pagination-info">Showing 1 to 15 of 105 items</span>
+                            <div class="btn-group btn-group-sm" id="products-pagination-buttons">
+                                <button class="btn btn-outline-secondary" onclick="changeProductsPage(-1)">Previous</button>
+                                <button class="btn btn-outline-secondary active">1</button>
+                                <button class="btn btn-outline-secondary" onclick="changeProductsPage(1)">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. INVENTORY CONTROL PAGE -->
+                <section id="page-inventory" class="page-view animate-fade">
+                    <div class="card shadow-sm border-0 rounded overflow-hidden mb-4">
+                        <div class="card-header bg-white py-3">
+                            <h5 class="fw-bold mb-0">Current Inventory Threshold Levels</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-middle table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Item Name</th>
+                                        <th>Available Units</th>
+                                        <th>Min Level</th>
+                                        <th>Safety Buffer</th>
+                                        <th>Max Level</th>
+                                        <th>Physical Shelf Loc</th>
+                                        <th>Status Alert</th>
+                                        <th class="text-end">Quick Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventory-controls-tbody">
+                                    <!-- Dynamic levels -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow-sm border-0 rounded overflow-hidden">
+                        <div class="card-header bg-white py-3">
+                            <h5 class="fw-bold mb-0">Stock movements Audit Trail</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-middle table-hover mb-0 text-sm">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Movement ID</th>
+                                        <th>Product SKU</th>
+                                        <th>Details</th>
+                                        <th>Warehouse Path</th>
+                                        <th>Quantity</th>
+                                        <th>Type</th>
+                                        <th>Logged User</th>
+                                        <th>Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventory-movement-tbody">
+                                    <!-- Log details dynamic -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. STOCK TRANSERS PAGE -->
+                <section id="page-transfers" class="page-view animate-fade">
+                    <div class="row g-4">
+                        <div class="col-md-5">
+                            <div class="card shadow-sm p-4 border-0">
+                                <h5 class="fw-bold mb-4">Transfer Inventory Stock</h5>
+                                <form id="transfer-form">
+                                    <div class="mb-3">
+                                        <label class="form-label">Select SKU</label>
+                                        <select id="transfer-product-sku" class="form-select" required></select>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label class="form-label">Source Warehouse</label>
+                                            <select id="transfer-from-wh" class="form-select" required></select>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">Destination Warehouse</label>
+                                            <select id="transfer-to-wh" class="form-select" required></select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Quantity to Transfer</label>
+                                        <input type="number" id="transfer-qty" class="form-control" min="1" placeholder="e.g. 5" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-teal w-100">
+                                        Authorize Transfer <i class="fa-solid fa-paper-plane ms-2"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-7">
+                            <div class="card shadow-sm p-4 border-0 h-100">
+                                <h5 class="fw-bold mb-4">Distribution Warehouses Overview</h5>
+                                <div id="transfer-warehouses-grid" class="row g-3">
+                                    <!-- Dynamic warehouse indicators -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. SUPPLIERS PAGE -->
+                <section id="page-suppliers" class="page-view animate-fade">
+                    <div class="action-bar d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="fw-bold mb-0">Registered Supplier Networks</h5>
+                        <button class="btn btn-teal" onclick="openSupplierAddModal()"><i class="fa-solid fa-plus me-1"></i> Add Supplier</button>
+                    </div>
+
+                    <!-- Geospatial Analytics Map -->
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-body p-0">
+                            <div class="d-flex justify-content-between align-items-center p-3 border-bottom bg-light">
+                                <h6 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-earth-americas me-2 text-primary"></i> Supplier Global Network</h6>
+                                <span class="badge bg-primary">Interactive Map</span>
+                            </div>
+                            <div id="supplier-map" style="height: 350px; width: 100%; border-bottom-left-radius: 0.375rem; border-bottom-right-radius: 0.375rem;"></div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4" id="suppliers-grid">
+                        <!-- Dynamic supplier cards -->
+                    </div>
+                </section>
+
+                <!-- 6. PURCHASE ORDERS PAGE -->
+                <section id="page-purchases" class="page-view animate-fade">
+                    <div class="action-bar d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <h5 class="fw-bold mb-0">Purchases Ledger &amp; POs</h5>
+                            <span class="badge bg-primary-subtle text-primary" id="po-total-badge">34 Orders</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <div class="input-group input-group-sm" style="min-width:220px;">
+                                <span class="input-group-text"><i class="fa-solid fa-search text-muted"></i></span>
+                                <input type="text" id="search-purchases" class="form-control" placeholder="Search PO # or supplier..." oninput="renderPurchasesTable()">
+                            </div>
+                            <select id="filter-po-status" class="form-select form-select-sm" style="min-width:155px;" onchange="renderPurchasesTable()">
+                                <option value="">All Statuses</option>
+                                <option value="Draft">Draft</option>
+                                <option value="Pending Approval">Pending Approval</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Received">Received</option>
+                                <option value="Delayed">Delayed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                            <button class="btn btn-teal btn-sm" onclick="openPurchaseOrderModal()"><i class="fa-solid fa-cart-plus me-1"></i> Create PO</button>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm border-0 rounded overflow-hidden">
+                        <div class="table-responsive">
+                            <table class="table align-middle table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>PO Number</th>
+                                        <th>Supplier Name</th>
+                                        <th>Date Created</th>
+                                        <th>Amount</th>
+                                        <th>G/L Officer</th>
+                                        <th>Approved Account</th>
+                                        <th>Status Level</th>
+                                        <th class="text-end">Verification Checks</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="purchases-tbody">
+                                    <!-- Dynamic PO transactions -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer bg-white d-flex justify-content-between align-items-center py-3">
+                            <span class="text-xs text-muted" id="purchases-pagination-info">Loading orders...</span>
+                            <div id="purchases-pagination-btns" class="d-flex gap-1"></div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- 7. BILLING / POS INTERFACE PAGE -->
+                <section id="page-billing" class="page-view animate-fade">
+                    <div class="row g-4">
+                        <!-- Left: Shopping card -->
+                        <div class="col-md-7">
+                            <div class="card shadow-sm p-4 border-0">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <h5 class="fw-bold mb-0">POS Terminal Billing</h5>
+                                    <div>
+                                        <!-- Scan for POS billing -->
+                                        <button class="btn btn-outline-teal btn-sm" onclick="openScannerModalForBilling()"><i class="fa-solid fa-barcode me-1"></i> Scan SKU</button>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Search/Select Item</label>
+                                    <select id="billing-catalog-select" class="form-select" onchange="billSelectItem(this)">
+                                        <option value="">Choose item...</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="table-responsive" style="max-height: 280px;">
+                                    <table class="table align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Unit Price</th>
+                                                <th>Qty</th>
+                                                <th>GST Tax</th>
+                                                <th>Subtotal</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="billing-items-tbody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Invoice review payment -->
+                        <div class="col-md-5">
+                            <div class="card shadow-sm p-4 border-0">
+                                <h5 class="fw-bold mb-4">Invoice totals</h5>
+                                <div class="mb-3">
+                                    <label class="form-label">Associate Customer</label>
+                                    <select id="billing-customer" class="form-select"></select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Discount Val (₹)</label>
+                                    <input type="number" id="billing-discount" class="form-control" value="0" min="0" oninput="calculateBillingTotals()">
+                                </div>
+                                <hr>
+                                <div class="billing-summary text-sm text-secondary">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Gross Total:</span>
+                                        <span id="bill-gross">₹0.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Auto GST Tax (18% Avg):</span>
+                                        <span id="bill-tax">₹0.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Discount Apply:</span>
+                                        <span class="text-danger" id="bill-discount-applied">-₹0.00</span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between fw-bold text-dark h5 mb-4">
+                                        <span>Total Net:</span>
+                                        <span class="text-teal" id="bill-net">₹0.00</span>
+                                    </div>
+                                    <button class="btn btn-teal w-100 btn-lg shadow-sm" onclick="checkoutSalesBill()">
+                                        Authorise Invoice Payment <i class="fa-solid fa-receipt ms-2"></i>
+                                    </button>
+
+                                    <!-- Post-Sale Invoice Actions Panel (displayed together after successful billing) -->
+                                    <div id="pos-invoice-actions-panel" class="mt-4 p-3 bg-light rounded border d-none">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="fw-bold text-success text-sm"><i class="fa-solid fa-circle-check me-1"></i> Bill Complete: <span id="pos-last-inv-num">INV-001</span></span>
+                                            <span class="badge bg-teal" id="pos-last-inv-amt">₹0.00</span>
+                                        </div>
+                                        <p class="text-xs text-muted mb-2">Invoice sharing and export options:</p>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <a id="btn-pos-download-pdf" href="#" target="_blank" class="btn btn-outline-teal btn-sm flex-fill">
+                                                <i class="fa-solid fa-file-pdf me-1"></i> Download PDF
+                                            </a>
+                                            <button type="button" class="btn btn-outline-primary btn-sm flex-fill" onclick="openInvoiceShareModal(lastCompletedInvoice, 'email')">
+                                                📧 Email Invoice
+                                            </button>
+                                            <button type="button" class="btn btn-outline-success btn-sm flex-fill" onclick="openInvoiceShareModal(lastCompletedInvoice, 'whatsapp')">
+                                                💬 WhatsApp Invoice
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 8. AI FORECAST ANALYTICS PAGE -->
+                <section id="page-predictions" class="page-view animate-fade">
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-4">
+                            <div class="card shadow-sm p-4 border-0 h-100">
+                                <h5 class="fw-bold mb-4">Forecast AI Controls</h5>
+                                <p class="text-secondary text-sm">Compare multiple predictions models (Random Forest, Decision Tree, Linear Reg, XGBoost, and ARIMA) to identify peak metrics accuracy.</p>
+                                <hr>
+                                <div class="mb-3">
+                                    <label class="form-label">Select SKU to train/predict</label>
+                                    <select id="predictions-catalog-select" class="form-select"></select>
+                                </div>
+                                <button class="btn btn-teal w-100" onclick="triggerAIForecastTrain()"><i class="fa-solid fa-gear fa-spin me-2"></i> Run AI Model Comparison</button>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-8">
+                            <div class="card shadow-sm p-4 border-0">
+                                <h5 class="fw-bold mb-4"><i class="fa-solid fa-square-poll-vertical text-teal me-2"></i> Prediction Models Validation Accuracy</h5>
+                                <div class="table-responsive">
+                                    <table class="table align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Algorithm Profile</th>
+                                                <th>Correlation R-Squared (R²) Accuracy</th>
+                                                <th>Standard Mean Square Error (MSE)</th>
+                                                <th>Validation Class Rank</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="predictions-comparison-tbody">
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted">Select an SKU and run comparison models.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Predictions values -->
+                    <div class="card shadow-sm border-0 rounded overflow-hidden">
+                        <div class="card-header bg-white py-3">
+                            <h5 class="fw-bold mb-0">Recommended Stock Orders Queue</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-middle table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Product SKU</th>
+                                        <th>Title</th>
+                                        <th>Current Stock</th>
+                                        <th>Recommended Reorder Amount</th>
+                                        <th>Predicted 30-Day Sales</th>
+                                        <th>Accuracy Rating</th>
+                                        <th class="text-end">Evaluation Recommendation</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="predictions-listings-tbody">
+                                    <!-- Dynamic predictions -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 8.5 ADVANCED ANALYTICS PAGE -->
+                <section id="page-analytics" class="page-view animate-fade">
+                    <div class="row g-4 mb-4">
+                        <div class="col-12">
+                            <div class="card shadow-sm border-0 rounded overflow-hidden">
+                                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                                    <h5 class="fw-bold mb-0"><i class="fa-solid fa-tags text-teal me-2"></i> Dynamic Price Optimization</h5>
+                                    <button class="btn btn-outline-teal btn-sm" onclick="loadPriceOptimizationData()"><i class="fa-solid fa-rotate me-1"></i> Refresh Prices</button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table align-middle table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Product Name</th>
+                                                <th>Current Stock</th>
+                                                <th>Max Capacity</th>
+                                                <th>Stock Ratio</th>
+                                                <th>Base Price</th>
+                                                <th>Cost Price</th>
+                                                <th>Recommended Price</th>
+                                                <th>Base Margin</th>
+                                                <th>Target Margin</th>
+                                                <th>Optimization Strategy</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pricing-opt-tbody">
+                                            <!-- Loaded dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- CRM Segmentation -->
+                        <div class="col-lg-6">
+                            <div class="card shadow-sm border-0 rounded overflow-hidden h-100">
+                                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                                    <h5 class="fw-bold mb-0"><i class="fa-solid fa-users text-teal me-2"></i> CRM Customer RFM Segments</h5>
+                                    <button class="btn btn-outline-teal btn-sm" onclick="loadRFMSegments()"><i class="fa-solid fa-rotate me-1"></i> Refresh CRM</button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table align-middle table-hover mb-0 text-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Customer Name</th>
+                                                <th>Recency (Days)</th>
+                                                <th>Frequency</th>
+                                                <th>Monetary Spend</th>
+                                                <th>Segment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="crm-rfm-tbody">
+                                            <!-- Loaded dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Supplier Performance Ranker -->
+                        <div class="col-lg-6">
+                            <div class="card shadow-sm border-0 rounded overflow-hidden h-100 p-4">
+                                <h5 class="fw-bold mb-4"><i class="fa-solid fa-handshake text-teal me-2"></i> Category Supplier Selection Ranker</h5>
+                                <div class="mb-4">
+                                    <label class="form-label text-sm fw-semibold">Select Product to find suppliers</label>
+                                    <select id="supplier-select-product" class="form-select" onchange="loadSupplierSelectionData(this.value)">
+                                        <option value="">Choose item...</option>
+                                    </select>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table align-middle text-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Supplier Name</th>
+                                                <th>Rating</th>
+                                                <th>Perf Score</th>
+                                                <th>Weighted Score</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="supplier-selection-tbody">
+                                            <tr>
+                                                <td colspan="5" class="text-center text-muted">Choose a product from the list to display optimal suppliers.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Business Insights Panel -->
+                    <div class="mt-4">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                                <h5 class="fw-bold mb-0"><i class="fa-solid fa-lightbulb text-warning me-2"></i> Business Insights &amp; Inventory Intelligence</h5>
+                                <button class="btn btn-outline-warning btn-sm" onclick="loadBusinessInsights()"><i class="fa-solid fa-rotate me-1"></i> Refresh Insights</button>
+                            </div>
+                            <div class="card-body">
+                                <div id="business-insights-container">
+                                    <div class="text-center py-4 text-muted">
+                                        <i class="fa-solid fa-chart-bar fa-2x mb-2"></i>
+                                        <p>Switch to Analytics tab to load business insights.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CUSTOMERS CRM PAGE -->
+                <section id="page-customers" class="page-view animate-fade">
+                    <div class="action-bar d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h4 class="fw-bold mb-1"><i class="fa-solid fa-users text-info me-2"></i>Customer Management</h4>
+                            <p class="text-muted text-sm mb-0">CRM dashboard &mdash; purchase history, loyalty tiers, and customer analytics.</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="loadCustomersPage()"><i class="fa-solid fa-rotate me-1"></i> Refresh</button>
+                    </div>
+
+                    <!-- KPI Summary Row -->
+                    <div class="row g-3 mb-4" id="customer-kpi-row">
+                        <div class="col-md-3">
+                            <div class="kpi-card kpi-card-blue">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="kpi-label">Total Customers</span>
+                                    <div class="kpi-icon-box"><i class="fa-solid fa-user-group"></i></div>
+                                </div>
+                                <div class="kpi-value" id="crm-total-customers">0</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="kpi-card kpi-card-green">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="kpi-label">Gold &amp; Platinum</span>
+                                    <div class="kpi-icon-box"><i class="fa-solid fa-crown"></i></div>
+                                </div>
+                                <div class="kpi-value" id="crm-premium-customers">0</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="kpi-card kpi-card-orange">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="kpi-label">Avg Order Value</span>
+                                    <div class="kpi-icon-box"><i class="fa-solid fa-receipt"></i></div>
+                                </div>
+                                <div class="kpi-value" id="crm-avg-order">₹0</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="kpi-card kpi-card-purple">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="kpi-label">Total Revenue</span>
+                                    <div class="kpi-icon-box"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                                </div>
+                                <div class="kpi-value" id="crm-total-revenue">₹0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Customers Table -->
+                    <div class="card shadow-sm border-0 rounded overflow-hidden">
+                        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                            <h5 class="fw-bold mb-0">Customer Directory</h5>
+                            <input type="text" id="crm-search" class="form-control form-control-sm w-auto" placeholder="Search customers..." oninput="filterCustomers()">
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-middle table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Contact</th>
+                                        <th>Loyalty Tier</th>
+                                        <th>Orders</th>
+                                        <th>Total Spend</th>
+                                        <th>Last Order</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customers-tbody">
+                                    <tr><td colspan="6" class="text-center text-muted py-4">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- P&L ANALYSIS PAGE -->
+                <section id="page-planalysis" class="page-view animate-fade">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h4 class="fw-bold mb-1"><i class="fa-solid fa-sack-dollar text-success me-2"></i>Profit &amp; Loss Analysis</h4>
+                            <p class="text-muted text-sm mb-0">Real-time financial performance &mdash; revenue, COGS, gross profit, and net margins.</p>
+                        </div>
+                        <button class="btn btn-success" onclick="loadPLAnalysis()"><i class="fa-solid fa-rotate me-1"></i> Refresh P&L</button>
+                    </div>
+
+                    <!-- P&L KPI Cards -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-3">
+                            <div class="kpi-card kpi-card-blue">
+                                <span class="kpi-label">Total Revenue</span>
+                                <div class="kpi-value mt-2" id="pl-total-revenue">₹0</div>
+                                <small class="text-blue-100">All time gross sales</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="kpi-card kpi-card-orange">
+                                <span class="kpi-label">Cost of Goods Sold</span>
+                                <div class="kpi-value mt-2" id="pl-cogs">₹0</div>
+                                <small>Total COGS</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="kpi-card kpi-card-green">
+                                <span class="kpi-label">Gross Profit</span>
+                                <div class="kpi-value mt-2" id="pl-gross-profit">₹0</div>
+                                <small id="pl-margin-label">0% margin</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="kpi-card kpi-card-purple">
+                                <span class="kpi-label">Estimated Net Profit</span>
+                                <div class="kpi-value mt-2" id="pl-net-profit">₹0</div>
+                                <small>After overhead costs</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly P&L Chart -->
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-header bg-white py-3">
+                            <h5 class="fw-bold mb-0"><i class="fa-solid fa-chart-area text-success me-2"></i>Monthly Revenue vs COGS vs Profit</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pl-monthly-chart" height="100"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Top Products -->
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="card shadow-sm border-0 rounded overflow-hidden">
+                                <div class="card-header bg-white py-3">
+                                    <h5 class="fw-bold mb-0"><i class="fa-solid fa-trophy text-warning me-2"></i>Top 10 Best Selling Products</h5>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table align-middle table-hover mb-0 text-sm">
+                                        <thead>
+                                            <tr><th>#</th><th>Product</th><th>Qty Sold</th><th>Revenue</th></tr>
+                                        </thead>
+                                        <tbody id="top-products-tbody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card shadow-sm border-0 rounded overflow-hidden">
+                                <div class="card-header bg-white py-3">
+                                    <h5 class="fw-bold mb-0"><i class="fa-solid fa-arrow-trend-down text-danger me-2"></i>Top 10 Least Selling Products</h5>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table align-middle table-hover mb-0 text-sm">
+                                        <thead>
+                                            <tr><th>#</th><th>Product</th><th>Qty Sold</th><th>Revenue</th></tr>
+                                        </thead>
+                                        <tbody id="least-products-tbody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- WAREHOUSE HEATMAP PAGE -->
+                <section id="page-heatmap" class="page-view animate-fade">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h4 class="fw-bold mb-1"><i class="fa-solid fa-fire-flame-curved text-danger me-2"></i>Warehouse Inventory Heatmap</h4>
+                            <p class="text-muted text-sm mb-0">Visual map of product movement speed. Hot = fast-moving, Dead = slow-moving / stagnant.</p>
+                        </div>
+                        <button class="btn btn-danger" onclick="loadHeatmapData()"><i class="fa-solid fa-rotate me-1"></i> Refresh Map</button>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="d-flex gap-3 mb-4 flex-wrap">
+                        <span class="badge rounded-pill px-3 py-2" style="background: linear-gradient(135deg, #ef4444, #dc2626); font-size: 0.85rem;"><i class="fa-solid fa-fire me-1"></i>Hot (50+ sales)</span>
+                        <span class="badge rounded-pill px-3 py-2" style="background: linear-gradient(135deg, #f97316, #ea580c); font-size: 0.85rem;"><i class="fa-solid fa-temperature-high me-1"></i>Warm (21-50 sales)</span>
+                        <span class="badge rounded-pill px-3 py-2" style="background: linear-gradient(135deg, #3b82f6, #2563eb); font-size: 0.85rem;"><i class="fa-solid fa-snowflake me-1"></i>Cold (6-20 sales)</span>
+                        <span class="badge rounded-pill px-3 py-2" style="background: linear-gradient(135deg, #6b7280, #4b5563); font-size: 0.85rem;"><i class="fa-solid fa-cube me-1"></i>Dead Stock (0-5 sales)</span>
+                    </div>
+
+                    <!-- Inventory Health Score -->
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-3 text-center">
+                                    <div style="font-size: 3.5rem; font-weight: 900; line-height: 1;" id="health-score-display">--</div>
+                                    <div class="text-muted text-sm mt-1">Inventory Health Score</div>
+                                    <div class="badge bg-success mt-1" id="health-score-status">Loading...</div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="row g-3">
+                                        <div class="col-4">
+                                            <div class="text-center p-3 rounded" style="background: rgba(16,185,129,0.1);">
+                                                <div class="fw-bold fs-4 text-success" id="health-healthy">0</div>
+                                                <div class="text-sm text-muted">Healthy Stock</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="text-center p-3 rounded" style="background: rgba(245,158,11,0.1);">
+                                                <div class="fw-bold fs-4 text-warning" id="health-low">0</div>
+                                                <div class="text-sm text-muted">Low Stock</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="text-center p-3 rounded" style="background: rgba(239,68,68,0.1);">
+                                                <div class="fw-bold fs-4 text-danger" id="health-out">0</div>
+                                                <div class="text-sm text-muted">Out of Stock</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heatmap Grid -->
+                    <div id="heatmap-grid" class="row g-2"></div>
+                </section>
+
+                <!-- 9. AUDIT LOGS & REPORTS EXPORTS -->
+                <section id="page-reports" class="page-view animate-fade">
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <div class="card shadow-sm p-4 border-0 h-100">
+                                <h5 class="fw-bold mb-4"><i class="fa-solid fa-file-excel text-success me-2"></i> Export Data Spreadsheets</h5>
+                                <div class="d-flex flex-column gap-3">
+                                    <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded">
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Stock levels spreadsheet</h6>
+                                            <small class="text-muted">Export complete inventory item details, safety targets, and shelf codes.</small>
+                                        </div>
+                                        <a href="/api/reports/excel/inventory" class="btn btn-outline-success"><i class="fa-solid fa-download"></i></a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded">
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Sales transaction spreadsheet</h6>
+                                            <small class="text-muted">Export sales invoice registers, GST values, and payment status profiles.</small>
+                                        </div>
+                                        <a href="/api/reports/excel/sales" class="btn btn-outline-success"><i class="fa-solid fa-download"></i></a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded">
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Suppliers network spreadsheet</h6>
+                                            <small class="text-muted">Export contacts registry and audit ratings scorecard profiles.</small>
+                                        </div>
+                                        <a href="/api/reports/excel/suppliers" class="btn btn-outline-success"><i class="fa-solid fa-download"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card shadow-sm p-4 border-0 h-100">
+                                <h5 class="fw-bold mb-4"><i class="fa-solid fa-print text-muted me-2"></i> Print Invoices & PDF Logs</h5>
+                                <p class="text-secondary text-sm">Download invoice receipts in high-fidelity ReportLab layouts directly via the POS and Invoices logs. You can enter invoice numbers to preview details:</p>
+                                <div class="input-group max-width-400">
+                                    <input type="number" id="quick-invoice-number" class="form-control" placeholder="Sales Invoice ID...">
+                                    <button class="btn btn-teal" onclick="triggerPDFPrintQuick()"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 10. SECURITY CONTROLS PAGE (ADMIN PRIVILEGED) -->
+                <section id="page-security" class="page-view animate-fade">
+                    <div class="row g-4 mb-4">
+                        <div class="col-lg-7">
+                            <div class="card shadow-sm p-4 border-0">
+                                <h5 class="fw-bold mb-4"><i class="fa-solid fa-user-lock text-teal me-2"></i> Security Member Grid</h5>
+                                <div class="table-responsive">
+                                    <table class="table align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>User ID</th>
+                                                <th>Username</th>
+                                                <th>System Role</th>
+                                                <th>Email Registry</th>
+                                                <th>Status</th>
+                                                <th class="text-end">Locks controls</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="user-controls-tbody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="card shadow-sm p-4 border-0 h-100">
+                                <h5 class="fw-bold mb-4"><i class="fa-solid fa-laptop-code text-teal me-2"></i> Unrecognized Device Approvals</h5>
+                                <p class="text-muted text-xs">If a login attempt initiates from a non-whitelisted device cookie or browser profile, it must be validated here. If blocked, access is restricted.</p>
+                                <div class="table-responsive">
+                                    <table class="table table-sm align-middle text-xs">
+                                        <thead>
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Browser/OS</th>
+                                                <th>IP Source</th>
+                                                <th class="text-end">Verification</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="device-approvals-tbody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm p-4 border-0">
+                        <h5 class="fw-bold mb-4"><i class="fa-solid fa-clock-rotate-left text-danger me-2"></i> System Audit Trail (Last 100 Logs)</h5>
+                        <div class="table-responsive" style="max-height: 400px;">
+                            <table class="table text-xs">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Actor</th>
+                                        <th>Log Action</th>
+                                        <th>Target Scope</th>
+                                        <th>Record</th>
+                                        <th>Details</th>
+                                        <th>IP Source</th>
+                                        <th>Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="audit-trail-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ORDERS: RETURNS & TRACKING PAGE -->
+                <section id="page-orders" class="page-view animate-fade">
+                    <div class="row g-4 mb-4">
+                        <!-- Order Tracking -->
+                        <div class="col-lg-5">
+                            <div class="card shadow-sm border-0 p-4 h-100">
+                                <h5 class="fw-bold mb-3"><i class="fa-solid fa-location-crosshairs text-primary me-2"></i> Order Tracking</h5>
+                                <p class="text-muted text-sm mb-3">Enter an invoice or purchase order reference to track its status timeline.</p>
+                                <div class="input-group mb-3">
+                                    <input type="text" id="order-tracking-ref" class="form-control" placeholder="e.g. INV-001, PO-2026-0017" onkeydown="if(event.key==='Enter') trackOrderByRef()">
+                                    <button class="btn btn-primary" onclick="trackOrderByRef()"><i class="fa-solid fa-search me-1"></i> Track</button>
+                                </div>
+                                <div id="order-tracking-result">
+                                    <div class="text-center text-muted py-4">
+                                        <i class="fa-solid fa-truck-fast fa-2x mb-2 d-block"></i>
+                                        Enter a reference to track your order.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Returns Management -->
+                        <div class="col-lg-7">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                                    <h5 class="fw-bold mb-0"><i class="fa-solid fa-arrow-rotate-left text-danger me-2"></i> Returns &amp; Refund Management</h5>
+                                    <button class="btn btn-outline-danger btn-sm" onclick="openReturnModal()"><i class="fa-solid fa-plus me-1"></i> New Return</button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table align-middle table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Return No.</th>
+                                                <th>Invoice Ref</th>
+                                                <th>Reason</th>
+                                                <th>Refund Amt</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                                <th class="text-end">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="returns-tbody">
+                                            <tr><td colspan="7" class="text-center text-muted py-4">Loading returns...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SCANNER PAGE -->
+                <section id="page-scanner" class="page-view animate-fade">
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="card shadow-sm border-0 p-4">
+                                <h5 class="fw-bold mb-2"><i class="fa-solid fa-barcode text-primary me-2"></i> Barcode / QR Code Scanner</h5>
+                                <p class="text-muted text-sm mb-4">Use your webcam to scan product barcodes or QR codes. Results are automatically looked up in the catalog.</p>
+                                <div class="d-flex gap-3 mb-4">
+                                    <button class="btn btn-primary" onclick="openScannerModal()">
+                                        <i class="fa-solid fa-camera me-2"></i> Scan Product (Catalog)
+                                    </button>
+                                    <button class="btn btn-outline-primary" onclick="openScannerModalForBilling()">
+                                        <i class="fa-solid fa-cart-plus me-2"></i> Scan to POS Cart
+                                    </button>
+                                </div>
+                                <div id="scanner-page-illustration" class="py-2">
+                                    <!-- Authentic Barcode & Optical Scanner Viewfinder -->
+                                    <div class="barcode-viewfinder-card position-relative p-4 rounded-3 text-center" style="background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); border: 1px solid rgba(56, 189, 248, 0.35); overflow: hidden; box-shadow: inset 0 0 30px rgba(6, 182, 212, 0.12), 0 10px 25px rgba(0,0,0,0.3);">
+                                        
+                                        <!-- Viewfinder Corner Reticles -->
+                                        <div style="position: absolute; top: 12px; left: 12px; width: 22px; height: 22px; border-top: 3px solid #38bdf8; border-left: 3px solid #38bdf8; border-top-left-radius: 4px;"></div>
+                                        <div style="position: absolute; top: 12px; right: 12px; width: 22px; height: 22px; border-top: 3px solid #38bdf8; border-right: 3px solid #38bdf8; border-top-right-radius: 4px;"></div>
+                                        <div style="position: absolute; bottom: 12px; left: 12px; width: 22px; height: 22px; border-bottom: 3px solid #38bdf8; border-left: 3px solid #38bdf8; border-bottom-left-radius: 4px;"></div>
+                                        <div style="position: absolute; bottom: 12px; right: 12px; width: 22px; height: 22px; border-bottom: 3px solid #38bdf8; border-right: 3px solid #38bdf8; border-bottom-right-radius: 4px;"></div>
+                                        
+                                        <!-- Animated Laser Scanner Beam -->
+                                        <div class="scanner-laser-line" style="position: absolute; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, #ef4444 20%, #ff6b6b 50%, #ef4444 80%, transparent); box-shadow: 0 0 12px #ef4444, 0 0 25px #ff6b6b; z-index: 5; pointer-events: none;"></div>
+
+                                        <!-- Authentic Barcode & QR Display -->
+                                        <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap my-2">
+                                            <!-- Vector Barcode Card -->
+                                            <div class="bg-white p-3 rounded-2 shadow-sm d-inline-block text-dark">
+                                                <svg width="220" height="70" viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg" style="display: block; margin: 0 auto;">
+                                                    <rect x="10" y="5" width="3" height="45" fill="#000"/>
+                                                    <rect x="15" y="5" width="2" height="45" fill="#000"/>
+                                                    <rect x="20" y="5" width="5" height="45" fill="#000"/>
+                                                    <rect x="28" y="5" width="1" height="45" fill="#000"/>
+                                                    <rect x="32" y="5" width="4" height="45" fill="#000"/>
+                                                    <rect x="39" y="5" width="2" height="45" fill="#000"/>
+                                                    <rect x="44" y="5" width="6" height="45" fill="#000"/>
+                                                    <rect x="53" y="5" width="2" height="45" fill="#000"/>
+                                                    <rect x="58" y="5" width="4" height="45" fill="#000"/>
+                                                    <rect x="65" y="5" width="3" height="45" fill="#000"/>
+                                                    <rect x="71" y="5" width="1" height="45" fill="#000"/>
+                                                    <rect x="75" y="5" width="5" height="45" fill="#000"/>
+                                                    <rect x="83" y="5" width="2" height="45" fill="#000"/>
+                                                    <rect x="88" y="5" width="4" height="45" fill="#000"/>
+                                                    <rect x="95" y="5" width="2" height="45" fill="#000"/>
+                                                    <rect x="100" y="5" width="6" height="45" fill="#000"/>
+                                                    <rect x="109" y="5" width="3" height="45" fill="#000"/>
+                                                    <rect x="115" y="5" width="1" height="45" fill="#000"/>
+                                                    <rect x="119" y="5" width="4" height="45" fill="#000"/>
+                                                    <rect x="126" y="5" width="3" height="45" fill="#000"/>
+                                                    <rect x="132" y="5" width="2" height="45" fill="#000"/>
+                                                    <rect x="137" y="5" width="5" height="45" fill="#000"/>
+                                                    <rect x="145" y="5" width="2" height="45" fill="#000"/>
+                                                    <rect x="150" y="5" width="4" height="45" fill="#000"/>
+                                                    <rect x="157" y="5" width="2" height="45" fill="#000"/>
+                                                    <rect x="162" y="5" width="6" height="45" fill="#000"/>
+                                                    <rect x="171" y="5" width="3" height="45" fill="#000"/>
+                                                    <rect x="177" y="5" width="2" height="45" fill="#000"/>
+                                                    <rect x="182" y="5" width="4" height="45" fill="#000"/>
+                                                    <rect x="189" y="5" width="3" height="45" fill="#000"/>
+                                                    <rect x="195" y="5" width="2" height="45" fill="#000"/>
+                                                    <rect x="200" y="5" width="3" height="45" fill="#000"/>
+                                                    <text x="110" y="62" font-family="'Courier New', monospace" font-size="11" font-weight="bold" text-anchor="middle" letter-spacing="3" fill="#111827">ITM-001-STOCKSENSE</text>
+                                                </svg>
+                                            </div>
+
+                                            <!-- Vector QR Code Card -->
+                                            <div class="bg-white p-3 rounded-2 shadow-sm d-inline-block text-dark">
+                                                <svg width="70" height="70" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="5" y="5" width="20" height="20" fill="#000"/>
+                                                    <rect x="8" y="8" width="14" height="14" fill="#fff"/>
+                                                    <rect x="11" y="11" width="8" height="8" fill="#000"/>
+
+                                                    <rect x="45" y="5" width="20" height="20" fill="#000"/>
+                                                    <rect x="48" y="8" width="14" height="14" fill="#fff"/>
+                                                    <rect x="51" y="11" width="8" height="8" fill="#000"/>
+
+                                                    <rect x="5" y="45" width="20" height="20" fill="#000"/>
+                                                    <rect x="8" y="48" width="14" height="14" fill="#fff"/>
+                                                    <rect x="11" y="51" width="8" height="8" fill="#000"/>
+
+                                                    <rect x="30" y="7" width="5" height="5" fill="#000"/>
+                                                    <rect x="38" y="12" width="5" height="5" fill="#000"/>
+                                                    <rect x="32" y="20" width="5" height="5" fill="#000"/>
+                                                    <rect x="12" y="32" width="5" height="5" fill="#000"/>
+                                                    <rect x="22" y="30" width="5" height="5" fill="#000"/>
+                                                    <rect x="30" y="32" width="5" height="5" fill="#000"/>
+                                                    <rect x="38" y="30" width="5" height="5" fill="#000"/>
+                                                    <rect x="48" y="32" width="5" height="5" fill="#000"/>
+                                                    <rect x="58" y="30" width="5" height="5" fill="#000"/>
+                                                    <rect x="30" y="45" width="5" height="5" fill="#000"/>
+                                                    <rect x="38" y="52" width="5" height="5" fill="#000"/>
+                                                    <rect x="45" y="48" width="5" height="5" fill="#000"/>
+                                                    <rect x="55" y="55" width="5" height="5" fill="#000"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <!-- Scanner Status HUD -->
+                                        <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-secondary border-opacity-25 px-2">
+                                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1 font-monospace" style="font-size: 0.72rem;">
+                                                <i class="fa-solid fa-circle-dot me-1 text-danger"></i> LASER SENSOR ACTIVE
+                                            </span>
+                                            <span class="text-white-50 font-monospace" style="font-size: 0.75rem;">
+                                                CODE-128 / QR / EAN-13
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Quick Test SKU Pills -->
+                                    <div class="mt-3 text-start">
+                                        <label class="text-xs text-muted mb-1 fw-semibold"><i class="fa-solid fa-bolt text-warning me-1"></i> Quick Test Barcode SKUs:</label>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary font-monospace" onclick="testScanSKU('ITM-001')">ITM-001</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary font-monospace" onclick="testScanSKU('ITM-002')">ITM-002</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary font-monospace" onclick="testScanSKU('ITM-003')">ITM-003</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary font-monospace" onclick="testScanSKU('ITM-004')">ITM-004</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card shadow-sm border-0 p-4 h-100">
+                                <h5 class="fw-bold mb-3"><i class="fa-solid fa-qrcode text-success me-2"></i> Manual Barcode Lookup</h5>
+                                <p class="text-muted text-sm mb-3">Type a product SKU to search the catalog directly.</p>
+                                <div class="input-group mb-3">
+                                    <input type="text" id="manual-sku-search" class="form-control" placeholder="Enter SKU or barcode...">
+                                    <button class="btn btn-success" onclick="manualSKULookup()">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                                <div id="manual-sku-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- LIVE TRACKING PAGE -->
+                <section id="page-livetracking" class="page-view animate-fade">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h4 class="fw-bold mb-1">Live Stock & Security Monitor</h4>
+                            <p class="text-muted text-sm mb-0">Real-time inventory movements and active user access stream</p>
+                        </div>
+                        <div class="live-badge">
+                            <span class="pulse-dot"></span> Live Connected
+                        </div>
+                    </div>
+
+                    <div class="row g-4 mb-4">
+                        <div class="col-lg-7">
+                            <div class="card shadow-sm p-4 border-0 h-100">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="fw-bold mb-0"><i class="fa-solid fa-boxes-packing text-primary me-2"></i> Real-time Stock Movements</h5>
+                                    <span class="badge bg-primary-subtle text-primary font-monospace" id="live-movement-count">0 items</span>
+                                </div>
+                                <div id="live-movements-stream" class="overflow-auto" style="max-height: 520px;">
+                                    <!-- Dynamic live movement cards -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="card shadow-sm p-4 border-0 h-100">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="fw-bold mb-0"><i class="fa-solid fa-user-shield text-success me-2"></i> Access & Security Stream</h5>
+                                    <span class="badge bg-success-subtle text-success font-monospace" id="live-logins-count">0 active</span>
+                                </div>
+                                <div id="live-logins-stream" class="overflow-auto" style="max-height: 520px;">
+                                    <!-- Dynamic live login events -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 13. LOCAL FILE STORAGE PAGE -->
+                <section id="page-cloud" class="page-view animate-fade">
+                    <div class="cloud-header-banner mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <div>
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="provider-badge" style="background:#1a7f5a;">LOCAL STORAGE</span>
+                                <span class="text-xs text-white-50 font-monospace">static/uploads/cloud/</span>
+                            </div>
+                            <h4 class="fw-bold text-white mb-1">File Storage Manager</h4>
+                            <p class="text-white-50 text-sm mb-0">Upload and manage backups, reports, and documents on this server</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-teal text-white shadow-sm" onclick="triggerCloudUpload()"><i class="fa-solid fa-upload me-2"></i> Upload File</button>
+                            <input type="file" id="cloud-file-input" class="d-none" onchange="handleCloudFileUpload(event)">
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm border-0 p-4 mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold mb-0">Stored Files</h5>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="loadCloudFiles()"><i class="fa-solid fa-rotate me-1"></i> Refresh</button>
+                        </div>
+                        <div class="row g-3" id="cloud-files-grid">
+                            <!-- Dynamic file items -->
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- AI CHATBOT panel DRAWER -->
+    <div class="chatbot-drawer shadow-lg collapsed" id="chatbot-drawer">
+        <div class="chatbot-header d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-robot"></i>
+                <span class="chat-title">StockSense AI Core</span>
+            </div>
+            <div>
+                <!-- Voice search toggle -->
+                <button class="btn btn-link btn-xs text-white p-0 me-2" onclick="triggerSpeechRecognitionInput()" title="Voice command input">
+                    <i class="fa-solid fa-microphone" id="voice-mic-icon"></i>
+                </button>
+                <button class="btn btn-link text-white p-0" onclick="toggleChatbot()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages-grid">
+            <div class="chat-message bot">
+                Hello. I am your smart stocking inventory assistant. You can ask me to:
+                <ul class="text-xs mt-2 mb-0 ps-3">
+                    <li>"check stock MacBook"</li>
+                    <li>"forecast ITM-002"</li>
+                    <li>"summarize dashboard status"</li>
+                </ul>
+            </div>
+        </div>
+        <div class="chatbot-footer border-top p-2 bg-light">
+            <form id="chatbot-form" class="d-flex gap-1" onsubmit="sendChatbotQuery(event)">
+                <input type="text" id="chatbot-input" class="form-control form-control-sm border-0" placeholder="Type stock query..." required>
+                <button type="submit" class="btn btn-teal btn-sm"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODALS SECTION -->
+    <!-- 1. PRODUCT ADD/EDIT MODAL -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-teal text-white">
+                    <h5 class="modal-title fw-bold" id="productModalTitle">Product profile settings</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="product-form" onsubmit="submitProductForm(event)">
+                        <input type="hidden" id="prod-form-mode">
+                        <div class="mb-3">
+                            <label class="form-label text-xs">Product SKU ID</label>
+                            <input type="text" id="prod-sku" class="form-control" placeholder="e.g. ITM-009" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-xs">Product Reference Title</label>
+                            <input type="text" id="prod-name" class="form-control" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label text-xs">Category</label>
+                                <select id="prod-category" class="form-select" required>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Furniture">Furniture</option>
+                                    <option value="Stationery">Stationery</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label text-xs">Supplier</label>
+                                <select id="prod-supplier" class="form-select" required></select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label text-xs">Purchase Price (₹)</label>
+                                <input type="number" step="0.01" id="prod-purchase-price" class="form-control" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label text-xs">Selling Price (₹)</label>
+                                <input type="number" step="0.01" id="prod-selling-price" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label text-xs">Current Stock</label>
+                                <input type="number" id="prod-stock" class="form-control" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label text-xs">Expiry Date (N/A if none)</label>
+                                <input type="text" id="prod-expiry" class="form-control" placeholder="YYYY-MM-DD or N/A" value="N/A">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-4">
+                                <label class="form-label text-xs">Min</label>
+                                <input type="number" id="prod-min" class="form-control" value="5" required>
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label text-xs">Safety</label>
+                                <input type="number" id="prod-safety" class="form-control" value="15" required>
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label text-xs">Max</label>
+                                <input type="number" id="prod-max" class="form-control" value="200" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-teal w-100 py-2 fw-bold">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. SUPPLIER ADD MODAL -->
+    <div class="modal fade" id="supplierModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-teal text-white">
+                    <h5 class="modal-title fw-bold">Register new supplier</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="supplier-form" onsubmit="submitSupplierForm(event)">
+                        <div class="mb-3">
+                            <label class="form-label">Supplier Name</label>
+                            <input type="text" id="supp-name" class="form-control" placeholder="e.g. Acme Corp" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" id="supp-email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <input type="text" id="supp-phone" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <input type="text" id="supp-address" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-teal w-100">Save Supplier</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. WEBCAM SCANNER MODAL -->
+    <div class="modal fade" id="scannerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-teal text-white">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-camera me-2"></i> Scan Barcode / QR Code</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" onclick="stopWebcamScanner()"></button>
+                </div>
+                <div class="modal-body text-center p-4">
+                    <div id="reader" style="width: 100%; max-width: 400px; margin: 0 auto; border-radius: 12px; overflow: hidden;" class="mb-3"></div>
+                    <div id="scanner-result" class="text-sm fw-bold text-teal"></div>
+                    <p class="text-muted text-xs mt-3">Grant camera access. Position the barcode clearly within the viewport.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. CREATE PURCHASE ORDER MODAL -->
+    <div class="modal fade" id="purchaseOrderModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-teal text-white">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-cart-plus me-2"></i> Create Purchase Order</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="po-create-form" onsubmit="submitPurchaseOrderForm(event)">
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold">Supplier</label>
+                                <select id="po-supplier-select" class="form-select" required>
+                                    <option value="">Loading suppliers...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Product SKU</label>
+                                <select id="po-product-select" class="form-select" required>
+                                    <option value="">Loading products...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Quantity</label>
+                                <input type="number" id="po-quantity" class="form-control" min="1" placeholder="e.g. 50" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-semibold">Unit Price (₹)</label>
+                                <input type="number" id="po-unit-price" class="form-control" step="0.01" min="0.01" placeholder="e.g. 299.99" required>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="po-total-preview" class="alert alert-info py-2 d-none">
+                                    <i class="fa-solid fa-receipt me-2"></i>
+                                    Order Total: <strong id="po-total-amount">₹0.00</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-teal"><i class="fa-solid fa-paper-plane me-1"></i> Submit Purchase Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MULTI WAREHOUSE ADJUSTMENT MODAL -->
+    <div class="modal fade" id="multiWarehouseModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fw-bold" id="mwh-modal-title"><i class="fa-solid fa-warehouse me-2"></i> Multi-Warehouse Allocation</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <input type="hidden" id="mwh-product-id">
+                    <div class="alert alert-info py-2 mb-3">
+                        <i class="fa-solid fa-circle-info me-2"></i> Adjust stock quantities and storage thresholds specifically per warehouse.
+                    </div>
+                    <div id="mwh-locations-list">
+                        <!-- Dynamic warehouse list cards -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD NEW WAREHOUSE MODAL -->
+    <div class="modal fade" id="addWarehouseModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-building me-2"></i> Register New Warehouse</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="add-warehouse-form" onsubmit="submitAddWarehouseForm(event)">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Warehouse Name</label>
+                            <input type="text" id="new-wh-name" class="form-control" placeholder="e.g. West Coast Regional Depot" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Location / Address</label>
+                            <input type="text" id="new-wh-location" class="form-control" placeholder="e.g. Seattle, WA, Aisle 10" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Total Capacity (Units)</label>
+                            <input type="number" id="new-wh-capacity" class="form-control" value="5000" min="100" required>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-teal"><i class="fa-solid fa-check me-1"></i> Create Warehouse</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RETURN REQUEST MODAL -->
+    <div class="modal fade" id="returnModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-arrow-rotate-left me-2"></i> Submit Return Request</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="return-request-form" onsubmit="submitReturnRequest(event)">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Invoice Number <span class="text-danger">*</span></label>
+                            <input type="text" id="return-invoice-number" class="form-control" placeholder="e.g. INV-001" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Return Reason <span class="text-danger">*</span></label>
+                            <textarea id="return-reason" class="form-control" rows="3" placeholder="Describe the reason for the return..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Quantity to Return</label>
+                            <input type="number" id="return-quantity" class="form-control" value="1" min="1">
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger"><i class="fa-solid fa-check me-1"></i> Submit Return</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INVOICE SHARING MODAL -->
+    <div class="modal fade" id="invoiceSharingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fw-bold">
+                        <i class="fa-solid fa-receipt text-teal me-2"></i> Invoice Ready: <span id="modal-invoice-number"></span>
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- Invoice Summary Header -->
+                    <div class="d-flex justify-content-between align-items-center p-3 mb-4 rounded" style="background: #f0fdfa; border: 1px solid #ccfbf1;">
+                        <div>
+                            <div class="fw-bold text-dark fs-5" id="modal-customer-name">Guest Customer</div>
+                            <div class="text-muted text-sm">Store: <span class="fw-semibold">StockSense Enterprise Systems</span></div>
+                        </div>
+                        <div class="text-end">
+                            <div class="text-muted text-xs">Total Amount Paid</div>
+                            <div class="fw-bold text-teal fs-4" id="modal-total-amount">₹0.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Required UI Options displayed together -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-secondary text-uppercase text-xs tracking-wider mb-2">Invoice Sharing Options</label>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a id="modal-btn-download-pdf" href="#" target="_blank" class="btn btn-outline-teal btn-lg flex-fill">
+                                <i class="fa-solid fa-file-pdf me-2"></i> Download PDF
+                            </a>
+                            <button type="button" id="modal-btn-tab-email" class="btn btn-outline-primary btn-lg flex-fill active" onclick="switchInvoiceShareTab('email')">
+                                📧 Send Invoice by Email
+                            </button>
+                            <button type="button" id="modal-btn-tab-whatsapp" class="btn btn-outline-success btn-lg flex-fill" onclick="switchInvoiceShareTab('whatsapp')">
+                                💬 Send Invoice via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Email Sharing Tab Pane -->
+                    <div id="modal-tab-email" class="p-3 border rounded bg-white">
+                        <h6 class="fw-bold mb-2"><i class="fa-solid fa-envelope text-primary me-2"></i> Email Invoice with PDF Attachment</h6>
+                        <p class="text-muted text-sm mb-3">Send the generated official PDF invoice directly to the customer's inbox.</p>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Customer Email Address <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-at"></i></span>
+                                <input type="email" id="modal-email-input" class="form-control" placeholder="customer@example.com">
+                            </div>
+                            <div id="modal-email-feedback" class="mt-2 text-sm fw-medium"></div>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="btn-submit-email-send" onclick="submitSendInvoiceEmail()">
+                            <i class="fa-solid fa-paper-plane me-2"></i> 📧 Send Invoice by Email
+                        </button>
+                    </div>
+
+                    <!-- WhatsApp Sharing Tab Pane -->
+                    <div id="modal-tab-whatsapp" class="whatsapp-pane-card d-none">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h5 class="whatsapp-heading mb-0">
+                                <i class="fa-brands fa-whatsapp me-2" style="color: #25D366;"></i> Send Invoice via WhatsApp
+                            </h5>
+                            <span class="badge" style="background: #dcfce7; color: #15803d; font-weight: 700; border: 1px solid #86efac; font-size: 0.75rem;">
+                                <i class="fa-solid fa-shield-halved me-1"></i> Official Sharing
+                            </span>
+                        </div>
+                        <p class="whatsapp-desc">
+                            Deliver the official invoice details and PDF download link directly to the customer's WhatsApp.
+                        </p>
+
+                        <!-- 1. Store / Business Sender WhatsApp Number (Clearly Distinguished) -->
+                        <div class="business-sender-card mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="business-sender-label">
+                                        <i class="fa-solid fa-store me-1"></i> Business WhatsApp Number (Sender)
+                                    </div>
+                                    <div class="business-sender-number" id="modal-business-phone-display">
+                                        +91 9751008105
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <span class="business-sender-tag">
+                                        <i class="fa-solid fa-circle-check me-1"></i> Store Account
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Customer WhatsApp Number (Input separately) -->
+                        <div class="mb-3">
+                            <label class="form-label customer-phone-label">
+                                Customer WhatsApp Number <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group whatsapp-input-group">
+                                <span class="input-group-text whatsapp-input-addon"><i class="fa-brands fa-whatsapp"></i></span>
+                                <input type="tel" id="modal-phone-input" class="form-control whatsapp-phone-input" placeholder="Enter Customer WhatsApp Number (e.g. 9876543210 or +91 9876543210)">
+                            </div>
+                            <small class="customer-phone-hint">Enter the recipient's mobile number. The customer will receive this invoice from store sender 9751008105.</small>
+                            <div id="modal-phone-feedback" class="mt-2 text-sm fw-semibold"></div>
+                        </div>
+
+                        <!-- 3. Professional Message Preview Box -->
+                        <div class="preview-container">
+                            <div class="preview-header-title">
+                                <i class="fa-solid fa-comment-dots text-success me-2"></i> Professional Message Preview:
+                            </div>
+                            <pre id="modal-whatsapp-preview" class="whatsapp-preview-box"></pre>
+                        </div>
+
+                        <!-- 4. Action Buttons -->
+                        <div class="d-flex flex-wrap gap-2 align-items-center">
+                            <button type="button" class="btn btn-whatsapp-send" id="btn-submit-whatsapp-send" onclick="submitSendInvoiceWhatsApp()">
+                                <i class="fa-brands fa-whatsapp me-2 fs-5"></i> Send Invoice via WhatsApp
+                            </button>
+                            <a id="modal-whatsapp-direct-link" href="#" target="_blank" class="btn btn-whatsapp-web d-none">
+                                <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Open in WhatsApp Web / App (Send to Customer)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional Footer -->
+    <footer class="app-footer" style="text-align: center; padding: 20px; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-color);">
+        &copy; 2026 StockSense AI-Powered Smart Inventory & Stock Management System. All rights reserved. <br>
+        Version 2.0.1 | Enterprise Edition
+    </footer>
+
+    <!-- AI CHAT WIDGET -->
+    <div id="ai-chat-widget" class="position-fixed bottom-0 end-0 m-4 shadow-lg rounded-4 overflow-hidden" style="width: 350px; z-index: 9999; display: flex; flex-direction: column; background: white; border: 1px solid rgba(0,0,0,0.1); transform: translateY(calc(100% - 60px)); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);">
+        <div class="chat-header bg-primary text-white p-3 d-flex justify-content-between align-items-center" style="cursor: pointer;" onclick="toggleChatWidget()">
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-robot fs-4 me-2"></i>
+                <h6 class="mb-0 fw-bold">StockSense AI</h6>
+            </div>
+            <i class="fa-solid fa-chevron-up" id="chat-toggle-icon"></i>
+        </div>
+        <div class="chat-body p-3 overflow-auto" id="chat-body" style="height: 350px; background: #f8fafc;">
+            <div class="chat-message bot mb-3">
+                <div class="d-flex align-items-end">
+                    <div class="bg-primary text-white p-2 rounded-3 ms-auto w-75 shadow-sm" style="font-size: 0.9rem;">
+                        Hello! I'm your AI Assistant. Ask me about low stock, top products, or next month's sales forecast.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-footer p-2 border-top bg-white">
+            <form id="chat-form" onsubmit="submitChatQuery(event)" class="d-flex gap-2">
+                <input type="text" id="chat-input" class="form-control rounded-pill border-0 bg-light" placeholder="Ask AI..." autocomplete="off">
+                <button type="submit" class="btn btn-primary rounded-circle" style="width: 40px; height: 40px;"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <!-- Vector Assets -->
+    <script src="/static/assets.js"></script>
+    <!-- Core JS -->
+    <script src="/static/app.js"></script>
+</body>
+</html>

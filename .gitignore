@@ -1,0 +1,12 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+mail_log.txt
+startup_error.log
+verify_results.log
+verify_results_utf8.txt
+scan_results.txt
